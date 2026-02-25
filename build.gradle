@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.spring'
+version = '1.0.0'
+java.sourceCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://maven.egovframe.go.kr/maven'
+    }
+}
+
+configurations {
+    configureEach {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'org.egovframe.rte:org.egovframe.rte.fdl.reactive:4.3.0'
+//    implementation 'org.egovframe.rte:org.egovframe.rte.psl.reactive.redis:4.3.0'
+    implementation 'org.egovframe.rte:org.egovframe.rte.ptl.reactive:4.3.0'
+
+    implementation 'org.springdoc:springdoc-openapi-webflux-core:1.7.0'
+    implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.7.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    testCompileOnly 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+bootJar {
+    exclude('org/projectlombok/lombok')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('wrapper') {
+    gradleVersion = '7.6.4'
+    distributionType = Wrapper.DistributionType.BIN
+}

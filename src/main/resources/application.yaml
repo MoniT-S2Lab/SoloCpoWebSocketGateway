@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: SoloCpoWebSocketGateway
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration # JDBC/MyBatis/JPA를 사용할 경우 이 exclude를 제거하고 spring.datasource.* 설정을 추가
